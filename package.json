@@ -1,9 +1,9 @@
 {
-  "name": "Redux weather application",
+  "name": "Redux blogging application",
   "version": "1.0.0",
   "description": "Redux application with React and Babel support",
   "main": "index.js",
-  "repository": "git@github.com:modulooblongata/redux-weather-application.git",
+  "repository": "git@github.com:modulooblongata/redux-blog.git",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
