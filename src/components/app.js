@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
-
-import SearchBar from '../containers/search_bar';
-import WeatherList from '../containers/weather_list';
+import React from 'react';
+import { Component } from 'react';
 
 export default class App extends Component {
   render() {
     return (
-      <div>
-        <SearchBar />
-        <WeatherList />
+      <div className="container p-y-1">
+        {this.props.children}
       </div>
     );
   }

@@ -1,6 +1,4 @@
-# A Redux Application Using:
-- Uses OpenWeatherMap API
-- React Sparklines (https://github.com/borisyankov/react-sparklines)
-- Redux Promise
+# A barebones, practice blogging application
+- React Router
 - Axios
-- React GoogleMaps
+- Redux Promise
