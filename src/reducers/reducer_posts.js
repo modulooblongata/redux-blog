@@ -1,42 +1,12 @@
+import { FETCH_POSTS } from '../actions/index';
 
-import {
-  DID_GET_POSTS,
-  DID_GET_POST,
-  DID_CREATE_POST,
-  DID_DELETE_POST
-} from '../action_types';
+const INITIAL_STATE = { all: [], post: null };
 
-const addPostsToState = (posts, state) => {
-  return posts.reduce((result, post) => {
-    if (!post) return result;
-    return {
-      ...result,
-      [post.id]: {
-        ...result[post.id],
-        ...post
-      }
-    };
-  }, state);
-}
-
-export default function(state = {}, action) {
-  // To do in future: error handling
-  if (action.error) {
-    return state;
-  }
-
+export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
-  case DID_GET_POST:
-  case DID_CREATE_POST:
-    return addPostsToState([action.payload], state);
-  case DID_GET_POSTS:
-    return addPostsToState(action.payload, state);
-  case DID_DELETE_POST:
-    const id = action.payload;
-    const newState = { ...state };
-    delete newState[id];
-    return newState;
+    case FETCH_POSTS:
+      return { ...state, all: action.payload.data };
+    default:
+      return state;
   }
-
-  return state;
 }

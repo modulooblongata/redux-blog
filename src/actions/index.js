@@ -1,55 +1,25 @@
-import {
-  DID_GET_POSTS, DID_GET_POST, DID_CREATE_POST, DID_DELETE_POST
-} from '../action_types';
+import axios from 'axios';
 
-const mockPosts = {
-  '1': {
-    id: '1',
-    title: 'Hello, world!',
-    categories: 'misc, new',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-  },
-  '2': {
-    id: '2',
-    title: 'Another post',
-    categories: 'random, new',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-  }
-};
+export const FETCH_POSTS = 'FETCH_POSTS';
+export const CREATE_POST = 'CREATE_POST';
 
-export const getPosts = () => ({
-  type: DID_GET_POSTS,
-  payload: Promise.resolve(
-    Object.keys(mockPosts).map(id => mockPosts[id])
-  )
-});
+const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
+const API_KEY = '?key="sdfieeeeekkkkwlltjd';
 
-export const getPost = id => {
-  return {
-    type: DID_GET_POST,
-    payload: Promise.resolve(mockPosts[id])
-  };
-};
-
-export const createPost = fields => {
-  const id = Math.random().toString(36).substr(2, 8);
-
-  mockPosts[id] = {
-    ...fields,
-    id
-  };
+export function fetchPosts() {
+  const request = axios.get(`${ROOT_URL}/posts${API_KEY}`);
 
   return {
-    type: DID_CREATE_POST,
-    payload: Promise.resolve(mockPosts[id])
+    type: FETCH_POSTS,
+    payload: request
   };
 }
 
-export const deletePost = id => {
-  delete mockPosts[id];
+export function createPost(props){
+  const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, props);
 
   return {
-    type: DID_DELETE_POST,
-    payload: id
+    type: CREATE_POST,
+    payload: request
   };
 }
