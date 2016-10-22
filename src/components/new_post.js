@@ -12,6 +12,9 @@ class NewPost extends Component {
         <div className="form-group">
          <label>Title</label>
          <input type="text" className="form-control" {...title} />
+         <div className="text-help">
+          {title.touched ? title.error : ''}
+         </div>
         </div>
 
         <div className="form-group">
@@ -30,6 +33,16 @@ class NewPost extends Component {
   }
 }
 
+function validate (values) {
+  const errors = {};
+
+  if (!values.title) {
+    errors.title = 'You must enter a username';
+  }
+
+  return errors;
+}
+
 // connect: first argument is mapStateToProps
 // second is mapDispatchtoProps
 // reduxForm: first argument is form config
@@ -38,5 +51,5 @@ class NewPost extends Component {
 
 export default reduxForm({
   form: 'NewPostForm',
-  fields: ['title', 'categories', 'content']
+  fields: ['title', 'categories', 'content'], validate
 }, null, { createPost })(NewPost);
