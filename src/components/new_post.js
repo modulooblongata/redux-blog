@@ -1,7 +1,23 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
 import { Link } from 'react-router';
+
+const FIELDS = {
+  title: {
+    type: 'input',
+    label: 'Title for post'
+  },
+  categories: {
+    type: 'input',
+    label: 'Enter some categories'
+  },
+  content: {
+    type: 'textarea',
+    label: 'Post contents'
+  }
+};
 
 class NewPost extends Component {
   static contextTypes = {
@@ -60,17 +76,11 @@ class NewPost extends Component {
 function validate (values) {
   const errors = {};
 
-  if (!values.title) {
-    errors.title = 'You must enter a username';
-  }
-
-  if (!values.categories) {
-    errors.categories = 'You must enter categories';
-  }
-
-  if (!values.content) {
-    errors.content = 'You must enter content';
-  }
+  _.each(FIELDS, (type, field) => {
+    if (!values[field]) {
+      errors[field] = `Fill in the ${field} field`;
+    }
+  });
 
   return errors;
 }
@@ -83,5 +93,5 @@ function validate (values) {
 
 export default reduxForm({
   form: 'NewPostForm',
-  fields: ['title', 'categories', 'content'], validate
+  fields: _.keys(FIELDS), validate
 }, null, { createPost })(NewPost);
